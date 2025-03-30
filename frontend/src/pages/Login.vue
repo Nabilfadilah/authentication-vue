@@ -11,31 +11,39 @@
       <!-- form login -->
       <form @submit.prevent="handleLogin">
         <div class="mb-4">
-          <label class="block text-gray-700">Email</label>
-          <input
+          <!-- mengambil dari elemet <InputForm /> -->
+          <InputForm
+            label="Email"
+            name="email"
             type="email"
+            placeholder="Masukkan email"
             v-model="email"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
           />
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700">Password</label>
-          <input
+          <InputForm
+            label="Password"
+            name="password"
             type="password"
+            placeholder="Masukkan password"
             v-model="password"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
           />
         </div>
 
         <!-- tombol login -->
-        <button
+        <ButtonAll
           type="submit"
-          class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+          class-button="w-full bg-blue-500 hover:bg-blue-600"
         >
           Login
-        </button>
+        </ButtonAll>
+
+        <!-- <ButtonAll
+          type="submit"
+          class="w-full bg-blue-500 hover:bg-yellow-600"
+        >
+          Login
+        </ButtonAll> -->
       </form>
 
       <!-- link menuju halaman register -->
@@ -61,7 +69,11 @@ import {ref} from "vue";
 // impor 'useRouter' untuk navigasi setelah login
 import {useRouter} from "vue-router";
 
+import InputForm from "@/elements/InputForm.vue";
+import ButtonAll from "@/elements/ButtonAll.vue";
+
 export default {
+  components: {InputForm, ButtonAll},
   setup() {
     // inisialisasi store autentikasi menggunakan Pinia
     const authStore = useAuthStore();

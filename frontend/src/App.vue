@@ -1,13 +1,13 @@
 <script setup>
-
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-200 flex items-center justify-center">
-    <h1 class="text-4xl font-bold text-yellow-300 p-5 bg-fuchsia-900">Hello, Tailwind CSS in Vue.js! 🎉</h1>
+  <!-- membungkus seluruh tampilan dalam div dengan tinggi minimum layar -->
+  <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+    <!-- komponen router-view digunakan untuk menampilkan halaman berdasarkan route -->
+    <router-view />
   </div>
 </template>
 
 <style scoped>
-
 </style>

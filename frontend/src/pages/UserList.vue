@@ -8,7 +8,7 @@
 
         <!-- tombol Kembali ke Dashboard -->
         <ButtonAll>
-          <router-link to="/dashboard"> ⬅ Back </router-link>
+          <router-link to="/dashboard">⬅ Back</router-link>
         </ButtonAll>
       </div>
 
@@ -26,8 +26,9 @@
           </thead>
           <tbody>
             <!-- looping daftar user -->
+            <!-- v-for untuk menampilkan daftar user dalam tabel -->
             <tr
-              v-for="(user, index) in userAll"
+              v-for="(user, index) in userAll" 
               :key="user.id"
               class="border-b hover:bg-gray-100"
             >
@@ -99,6 +100,7 @@ const fetchUsers = async () => {
   }
 };
 
+// onMounted untuk memanggil data user saat komponen dimuat
 onMounted(() => {
   // ketika komponen pertama kali dimuat, cek apakah user adalah admin.
   if (authStore.user?.role === "admin") {

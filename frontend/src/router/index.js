@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../pages/Login.vue';
 import Register from '../pages/Register.vue';
 import Dashboard from '../pages/Dashboard.vue';
+import UserList from '@/pages/UserList.vue';
 
 // impor authGuard untuk melindungi halaman tertentu dari akses tanpa login
 import authGuard from '../guards/authGuard';
@@ -14,6 +15,7 @@ const routes = [
   { path: '/login', component: Login },         // route untuk halaman login
   { path: '/register', component: Register },   // route untuk halaman register
   { path: '/dashboard', component: Dashboard, beforeEnter: authGuard }, // route dashboard hanya bisa diakses jika sudah login
+  { path: '/users', component: UserList, beforeEnter: authGuard }, // route userlist hanya bisa diakses jika sudah login
 ];
 
 // membuat instance router dengan mode history agar URL terlihat lebih bersih

@@ -4,18 +4,28 @@
       Hello, {{ user?.name }} 👋
     </h2>
 
-    <div class="p-6 bg-white rounded-lg shadow-md text-center">
+    <div class="p-6 mb-5 bg-white rounded-lg shadow-md text-center">
       <h3 class="text-xl font-semibold text-gray-800">User Details</h3>
       <p class="text-gray-700 mt-2"><strong>Email:</strong> {{ user?.email }}</p>
       <p class="text-gray-700"><strong>Role:</strong> {{ user?.role }}</p>
     </div>
 
-    <button 
-      @click="handleLogout"
-      class="mt-5 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-    >
-      Logout
-    </button>
+    <div class="flex items-center gap-3">
+      <ButtonAll 
+        v-if="user?.role === 'admin'"
+        class="bg-blue-500 hover:bg-blue-800"
+      >
+        <RouterLink to="/users">
+          User List
+        </RouterLink>
+      </ButtonAll>
+      <ButtonAll 
+        @click="handleLogout"
+        class="bg-red-500 hover:bg-red-800"
+      >
+        Logout
+      </ButtonAll>
+    </div>
   </div>
 </template>
 
@@ -23,8 +33,10 @@
 import { useAuthStore } from "@/store/auth"; // impor store autentikasi dari Pinia
 import { useRouter } from "vue-router"; // impor 'useRouter' untuk navigasi setelah logi
 import { computed } from "vue"; // impor 'computed' membuat nilai yang dihitung secara otomatis berdasarkan data
+import ButtonAll from "@/elements/ButtonAll.vue";
 
 export default {
+  components: {ButtonAll},
   setup() {
     // inisialisasi store autentikasi menggunakan Pinia
     const authStore = useAuthStore(); 

@@ -12,6 +12,8 @@ import BiodataRouter from './BiodataRouter.vue';
 
 // impor authGuard untuk melindungi halaman tertentu dari akses tanpa login
 import authGuard from '../guards/authGuard';
+import BiodataCreate from '@/components/BiodataCreate.vue';
+import BiodataEdit from '@/components/BiodataEdit.vue';
 
 // daftar route dalam aplikasi
 const routes = [
@@ -21,7 +23,9 @@ const routes = [
   { path: '/users', component: UserList, beforeEnter: authGuard }, // route userlist hanya bisa diakses jika sudah login
   { path: '/users/:id', component: UserEdit, beforeEnter: authGuard },
   { path: '/admin/reset-password/:id', component: ResetPassword, beforeEnter: authGuard},  
-  { path: '/biodata', component: BiodataRouter, beforeEnter: authGuard }
+  { path: '/biodata', component: BiodataRouter, beforeEnter: authGuard },
+  { path: '/biodata/create', component: BiodataCreate, beforeEnter: authGuard },
+  { path: '/biodata/edit/:id', component: BiodataEdit, beforeEnter: authGuard },
 ];
 
 // membuat instance router dengan mode history agar URL terlihat lebih bersih

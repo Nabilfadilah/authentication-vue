@@ -7,10 +7,11 @@ import Register from '../pages/Register.vue';
 import Dashboard from '../pages/Dashboard.vue';
 import UserList from '@/pages/UserList.vue';
 import UserEdit from '@/components/UserEdit.vue';
+import ResetPassword from '@/components/ResetPassword.vue';
+import BiodataRouter from './BiodataRouter.vue';
 
 // impor authGuard untuk melindungi halaman tertentu dari akses tanpa login
 import authGuard from '../guards/authGuard';
-import ResetPassword from '@/components/ResetPassword.vue';
 
 // daftar route dalam aplikasi
 const routes = [
@@ -19,7 +20,8 @@ const routes = [
   { path: '/dashboard', component: Dashboard, beforeEnter: authGuard }, // route dashboard hanya bisa diakses jika sudah login
   { path: '/users', component: UserList, beforeEnter: authGuard }, // route userlist hanya bisa diakses jika sudah login
   { path: '/users/:id', component: UserEdit, beforeEnter: authGuard },
-  { path: '/admin/reset-password/:id', component: ResetPassword, beforeEnter: authGuard}  
+  { path: '/admin/reset-password/:id', component: ResetPassword, beforeEnter: authGuard},  
+  { path: '/biodata', component: BiodataRouter, beforeEnter: authGuard }
 ];
 
 // membuat instance router dengan mode history agar URL terlihat lebih bersih

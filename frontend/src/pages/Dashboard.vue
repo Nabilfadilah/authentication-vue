@@ -11,6 +11,12 @@
     </div>
 
     <div class="flex items-center gap-3">
+      <ButtonAll>
+        <RouterLink to="/biodata">
+          Biodata
+        </RouterLink>
+      </ButtonAll>
+
       <ButtonAll 
         v-if="user?.role === 'admin'"
         class="bg-blue-500 hover:bg-blue-800"

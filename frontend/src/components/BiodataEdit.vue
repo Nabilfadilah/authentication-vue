@@ -1,14 +1,18 @@
 <template>
+  <!-- wrapper utama form edit -->
   <div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <!-- header form: Judul + tombol kembali -->
     <div class="flex items-center justify-between mb-4">
       <Typography class="text-xl font-bold">Edit Biodata</Typography>
       <ButtonAll>
+        <!-- kembali ke halaman list biodata -->
         <router-link to="/biodata">⬅ Back</router-link>
       </ButtonAll>
     </div>
 
+    <!-- form untuk edit biodata -->
     <form @submit.prevent="handleSubmit" class="space-y-4">
-      <!-- Input Name -->
+      <!-- input Nama -->
       <div class="mb-3">
         <InputForm
           label="Nama"
@@ -20,7 +24,7 @@
         />
       </div>
 
-      <!-- Input Email -->
+      <!-- input Email -->
       <div class="mb-3">
         <InputForm
           label="Email"
@@ -32,7 +36,7 @@
         />
       </div>
 
-      <!-- Input Phone -->
+      <!-- input No Telepon -->
       <div class="mb-3">
         <InputForm
           label="No Telepon"
@@ -44,7 +48,7 @@
         />
       </div>
 
-      <!-- Input Address -->
+      <!-- input Alamat -->
       <div class="mb-3">
         <InputForm
           label="Alamat"
@@ -56,7 +60,7 @@
         />
       </div>
 
-      <!-- Input Foto -->
+      <!-- input untuk unggah foto -->
       <div class="mb-3">
         <Label>Upload Foto</Label>
         <input
@@ -66,6 +70,7 @@
           @change="handleInputChange"
           class="input"
         />
+        <!-- preview gambar jika ada -->
         <div v-if="photoPreview" class="mt-2">
           <img
             :src="photoPreview"
@@ -75,11 +80,8 @@
         </div>
       </div>
 
-      <!-- Submit -->
-      <ButtonAll
-        type="submit"
-        class="w-full bg-blue-500 hover:bg-blue-600"
-      >
+      <!-- tombol submit -->
+      <ButtonAll type="submit" class="w-full bg-blue-500 hover:bg-blue-600">
         Update Biodata
       </ButtonAll>
     </form>
@@ -96,14 +98,15 @@ import ButtonAll from "@/elements/ButtonAll.vue";
 import InputForm from "@/elements/InputForm.vue";
 import Label from "@/elements/Label.vue";
 
-// ambil ID dari route
+// ambil ID dari parameter URL
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
 
+// ambil store auth 
 const authStore = useAuthStore();
 
-// state form
+// state form untuk menampung data input user
 const formData = ref({
   name: "",
   email: "",
@@ -112,20 +115,23 @@ const formData = ref({
   photo: null,
 });
 
+// untuk menampilkan preview gambar
 const photoPreview = ref(null);
 
-// ambil data biodata berdasarkan ID
+// saat komponen dimuat, ambil data biodata berdasarkan ID
 onMounted(async () => {
   try {
     const response = await axiosInstance.get(`/biodata/${id}`);
+    // isi form dengan data yang sudah ada dari server
     formData.value = {
       name: response.data.name,
       email: response.data.email,
       phone: response.data.phone,
       address: response.data.address,
-      photo: null, // kosongkan dulu, karena ini untuk input file baru
+      photo: null, // dikosongkan karena input file tidak bisa langsung di-set
     };
 
+    // jika ada foto sebelumnya, tampilkan preview-nya
     if (response.data.photo) {
       photoPreview.value = response.data.photo;
     }
@@ -134,39 +140,44 @@ onMounted(async () => {
   }
 });
 
-// handle input
+// fungsi untuk menangani perubahan input
 const handleInputChange = (e) => {
   const {name, value, type, files} = e.target;
 
+  // jika input adalah file (foto)
   if (type === "file") {
     const file = files[0];
     if (file) {
       formData.value.photo = file;
+      // tampilkan preview gambar
       photoPreview.value = URL.createObjectURL(file);
     }
   } else {
+    // jika bukan file, update state form biasa
     formData.value[name] = value;
   }
 };
 
-// handle submit
+// fungsi untuk submit form ke server
 const handleSubmit = async () => {
   try {
     const data = new FormData();
     for (const key in formData.value) {
-      // hanya tambahkan photo jika ada file baru
+      // hanya tambahkan file jika ada file baru
       if (key !== "photo" || formData.value[key] instanceof File) {
         data.append(key, formData.value[key]);
       }
     }
 
+    // kirim data ke endpoint update
     await axiosInstance.put(`/biodata/edit/${id}`, data, {
       headers: {
-        "Content-Type": "multipart/form-data", // override default content-type
+        "Content-Type": "multipart/form-data",
       },
     });
 
     alert("Biodata berhasil diperbarui!");
+    // redirect ke halaman biodata
     router.push("/biodata");
   } catch (error) {
     console.error("Gagal update biodata:", error);
@@ -175,6 +186,7 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
+/* styling untuk input file */
 .input {
   width: 100%;
   padding: 8px;

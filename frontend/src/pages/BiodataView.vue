@@ -1,45 +1,40 @@
 <template>
-  <!-- container utama dengan lebar maksimum, padding, background putih, bayangan, border bulat, dan margin atas -->
-  <div class="max-w-xl mx-auto p-6 bg-white shadow-2xl rounded-lg mt-10">
-    <!-- bagian atas: Judul dan tombol kembali -->
-    <div class="flex items-center justify-between mb-4">
-      <!-- judul halaman -->
-      <Typography class="text-xl font-bold">Biodata Saya</Typography>
-
-      <!-- tombol kembali ke halaman dashboard -->
-      <RouterLink to="/dashboard">
-        <ButtonAll class="flex items-center gap-2"> Back </ButtonAll>
-      </RouterLink>
+  <div class="p-6 bg-white shadow-lg rounded-xl max-w-xl mx-auto">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6 border-b pb-3">
+      <h2 class="text-2xl font-bold text-gray-800">📋 Biodata Saya</h2>
     </div>
 
-    <!-- jika biodata berhasil didapatkan -->
-    <div v-if="biodata" class="flex flex-col items-center">
-      <!-- tampilkan foto jika ada -->
+    <!-- Jika biodata tersedia -->
+    <div v-if="biodata" class="flex flex-col items-center text-center">
+      <!-- Foto Profil -->
       <img
         v-if="biodata.photo"
         :src="biodata.photo"
         alt="Foto Profil"
-        class="w-32 h-32 rounded-full object-cover border-2 border-gray-300 mb-4"
+        class="w-32 h-32 rounded-full object-cover border-4 border-indigo-200 shadow-sm mb-4"
       />
-      <!-- tampilkan nama, email, alamat, dan nomor telepon -->
-      <Typography class="font-semibold">{{ biodata.name }}</Typography>
-      <p class="text-gray-600">Email: {{ biodata.email }}</p>
-      <p class="text-gray-600">Alamat: {{ biodata.address }}</p>
-      <p class="text-gray-600 pb-5">No Telepon: {{ biodata.phone }}</p>
 
-      <!-- tombol untuk mengedit biodata -->
+      <!-- Informasi -->
+      <h3 class="text-xl font-semibold text-gray-900">{{ biodata.name }}</h3>
+      <p class="text-gray-600 mt-1">📧 {{ biodata.email }}</p>
+      <p class="text-gray-600">🏠 {{ biodata.address }}</p>
+      <p class="text-gray-600 mb-5">📞 {{ biodata.phone }}</p>
+
+      <!-- Tombol Edit -->
       <RouterLink :to="`/biodata/edit/${biodata.id}`">
-        <ButtonAll class="bg-blue-500 hover:bg-blue-600"> Edit </ButtonAll>
+        <ButtonAll class="bg-indigo-600 hover:bg-indigo-700 transition">
+          ✏️ Edit Biodata
+        </ButtonAll>
       </RouterLink>
     </div>
 
-    <!-- jika biodata tidak tersedia -->
-    <div v-else class="text-center">
-      <p class="text-gray-500">Biodata belum tersedia.</p>
-      <!-- tombol untuk membuat biodata baru -->
+    <!-- Jika tidak ada biodata -->
+    <div v-else class="text-center text-gray-500 space-y-4">
+      <p>Biodata belum tersedia.</p>
       <RouterLink to="/biodata/create">
-        <ButtonAll class="bg-green-500 hover:bg-green-600">
-          Buat Biodata
+        <ButtonAll class="bg-green-600 hover:bg-green-700 transition">
+          ➕ Buat Biodata
         </ButtonAll>
       </RouterLink>
     </div>

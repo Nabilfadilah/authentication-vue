@@ -5,11 +5,6 @@
       <div class="flex items-center justify-between mb-4">
         <!-- judul Halaman -->
         <Typography class="text-xl font-bold">Daftar User Register</Typography>
-
-        <!-- tombol Kembali ke Dashboard -->
-        <ButtonAll>
-          <router-link to="/dashboard">⬅ Back</router-link>
-        </ButtonAll>
       </div>
 
       <!-- tabel User -->
@@ -28,11 +23,11 @@
             <!-- looping daftar user -->
             <!-- v-for untuk menampilkan daftar user dalam tabel -->
             <tr
-              v-for="(user, index) in userAll" 
+              v-for="(user, index) in userAll"
               :key="user.id"
               class="border-b hover:bg-gray-100"
             >
-              <td class="py-2 px-4 border text-start">{{ index + 1 }}.</td>
+              <td class="py-2 px-4 border w-11 text-center">{{ index + 1 }}.</td>
               <td class="py-2 px-4 border font-semibold text-start">
                 {{ user.name }}
               </td>
@@ -42,29 +37,31 @@
               <td class="py-2 px-4 border text-gray-500 italic text-start">
                 {{ user.role }}
               </td>
-              <td class="py-2 px-4 border flex gap-2">
-                <!-- tombol edit -->
-                <ButtonAll
-                  @click="handleEdit(user.id)"
-                  class="bg-blue-600 hover:bg-blue-700"
-                >
-                  ✏ Edit
-                </ButtonAll>
+              <td class="py-2 px-4 border">
+                <div class="flex justify-center flex-wrap gap-2">
+                  <!-- tombol edit -->
+                  <ButtonAll
+                    @click="handleEdit(user.id)"
+                    class="bg-blue-600 hover:bg-blue-700"
+                  >
+                    ✏ Edit
+                  </ButtonAll>
 
-                <!-- tombol hapus -->
-                <ButtonAll
-                  @click="handleDelete(user.id)"
-                  class="bg-red-600 hover:bg-red-700"
-                >
-                  🗑 Delete
-                </ButtonAll>
+                  <!-- tombol hapus -->
+                  <ButtonAll
+                    @click="handleDelete(user.id)"
+                    class="bg-red-600 hover:bg-red-700"
+                  >
+                    🗑 Delete
+                  </ButtonAll>
 
-                <!-- tombol reset password -->
-                <ButtonAll class="bg-yellow-600 hover:bg-yellow-700">
-                  <router-link :to="`/admin/reset-password/${user.id}`">
-                    🔄 Reset
-                  </router-link>
-                </ButtonAll>
+                  <!-- tombol reset password -->
+                  <ButtonAll class="bg-yellow-600 hover:bg-yellow-700">
+                    <router-link :to="`/admin/reset-password/${user.id}`">
+                      🔄 Reset
+                    </router-link>
+                  </ButtonAll>
+                </div>
               </td>
             </tr>
           </tbody>
